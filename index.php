@@ -1,4 +1,10 @@
-
+<?php
+    session_start();
+    if($_SESSION['username'])
+    {
+        echo "<script> location='coustmer/coustmerafterlogin.php' </script>";
+    }
+?>
 <html>
 <head>
 <script src="admin/js/jquery.js"></script>
