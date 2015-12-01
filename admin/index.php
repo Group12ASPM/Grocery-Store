@@ -50,9 +50,9 @@
 
 <form action="adminlogin.php" method="post" id="frm1">
 
-<input type="email" name="username" required value="Admin Username" onBlur="if(this.value=='')this.value='Email'" onFocus="if(this.value=='Email')this.value='' "> <!-- JS because of IE support; better: placeholder="Email" -->
+<input type="text" name="username" required value="Admin Username" onBlur="if(this.value=='')this.value='Admin User'" onFocus="if(this.value=='Admin User')this.value='' "> <!-- JS because of IE support; better: placeholder="Email" -->
 
-<input type="password" name="pwd" required value="Admin Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "> <!-- JS because of IE support; better: placeholder="Password" -->
+<input type="password" name="pwd" required value="Admin Password" onBlur="if(this.value=='')this.value='Admin Password'" onFocus="if(this.value=='Admin Password')this.value='' "> <!-- JS because of IE support; better: placeholder="Password" -->
 
 <center><input type="submit" value="Login" name="sub"></center>
 
