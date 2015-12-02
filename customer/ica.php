@@ -1,3 +1,6 @@
+<?php
+    include "conn.php"
+    ?>
 <html>
 <head>
 <script src="js/jquery.js"></script>
@@ -152,7 +155,18 @@ function icandies()
 <!--row for display-->
 <div id="row1">
 
-<!-- php code to display items from database-->
+<?php
+    
+    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='1'");
+    
+    while($row = mysql_fetch_array($result))
+    {
+        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
+        echo "</div>";
+    }
+    ?>
 
 </div>
 
@@ -170,7 +184,18 @@ function icandies()
 <!--row for display-->
 <div id="row1">
 
-<!-- php code to display items from database-->
+<?php
+    
+    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='2'");
+    
+    while($row = mysql_fetch_array($result))
+    {
+        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
+        echo "</div>";
+    }
+    ?>
 
 </div>
 
@@ -188,7 +213,18 @@ function icandies()
 <!--row for display-->
 <div id="row1">
 
-<!-- php code to display items from database-->
+<?php
+    
+    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='3'");
+    
+    while($row = mysql_fetch_array($result))
+    {
+        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
+        echo "</div>";
+    }
+    ?>
 
 </div>
 
@@ -205,7 +241,18 @@ function icandies()
 <!--row for display-->
 <div id="row1">
 
-<!-- php code to display items from database-->
+<?php
+    
+    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='4'");
+    
+    while($row = mysql_fetch_array($result))
+    {
+        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
+        echo "</div>";
+    }
+    ?>
 
 </div>
 
