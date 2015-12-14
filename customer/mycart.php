@@ -1,4 +1,6 @@
-
+<?php
+    include "conn.php";
+?>
 <html>
 <head>
 <script src="js/jquery.js"></script>
@@ -92,13 +94,53 @@
 <tr>
 <td colspan="6">Willys Shopping List</td>
 </tr>
-<!--code from backend-->
+<?php
+    $wresult = mysql_query("SELECT * FROM products WHERE product_id IN (SELECT product_id FROM MyCart WHERE uid='1' AND cart_id='1' AND store_id='1') AND store_id='1'");
+    $wsno=1;
+    $finaltotal1=0;
+    while ($wrow = mysql_fetch_assoc($wresult)) {
+        $wproductid=$wrow['product_id'];
+        
+        echo "<tr class='alt'><td>".$wsno++."</td><td width='10%'>{$wrow['product_name']}</td><td><img src='data:image/jpeg;base64," . base64_encode( $wrow['Image']) . "' style='height:70px;position:relative;' width='20%' /></td>";
+        
+        $wres=mysql_query("SELECT quantity FROM MyCart WHERE product_id ='$wproductid' AND uid='1' AND cart_id='1' AND store_id='1'");
+        while($wrowres = mysql_fetch_array($wres)) {
+            echo "<td>{$wrowres['quantity']}</td>";
+             $wquant=$wrowres['quantity'];
+            $wpr=$wrow['price'];
+            $wtotal=$wquant*$wpr;
+            $finaltotal1=$finaltotal1+$wtotal;
+        }
+        echo "<td>{$wrow['price']} SEK</td> <td>".$wtotal." SEK </td></tr>";
+    }
+?>
 
 <!-- ica-->
 <tr>
 <td colspan="6">ICA Shopping List</td>
 </tr>
-<!-- code for backend-->
+<?php
+    $iresult = mysql_query("SELECT * FROM products WHERE product_id IN (SELECT product_id FROM MyCart WHERE uid='1' AND cart_id='1' AND store_id='2') AND store_id='2'");
+    $isno=1;
+     $finaltotal2=0;
+    while ($irow = mysql_fetch_assoc($iresult)) {
+        $iproductid=$irow['product_id'];
+        
+        echo "<tr class='alt'><td>".$isno++."</td><td width='10%'>{$irow['product_name']}</td><td><img src='data:image/jpeg;base64," . base64_encode( $irow['Image']) . "' style='height:70px;position:relative;' width='20%' /></td>";
+        
+        $ires=mysql_query("SELECT quantity FROM MyCart WHERE product_id ='$iproductid' AND uid='1' AND cart_id='1' AND store_id='2'");
+        while($irowres = mysql_fetch_array($ires)) {
+            
+            echo "<td>{$irowres['quantity']}</td>";
+            $iquant=$irowres['quantity'];
+            $ipr=$irow['price'];
+            $itotal=$iquant*$ipr;
+            $finaltotal2=$finaltotal2+$itotal;
+        }
+      
+        echo "<td>{$irow['price']} SEK</td><td>".$itotal." SEK </td></tr>";
+    }
+?>
 <tr >
 <td colspan="5"><span style="font-size:20px">GRAND TOTAL AMOUNT</span></td>
 <?php
