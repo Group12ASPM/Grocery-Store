@@ -42,7 +42,7 @@
 <div id="right">
 <div class="container">
 
-<div id="login-form">
+<div id="login-form" style="margin-top:100px">
 
 <h3>Login</h3>
 
@@ -50,9 +50,9 @@
 
 <form action="adminlogin.php" method="post" id="frm1">
 
-<input type="text" name="username" required value="Admin Username" onBlur="if(this.value=='')this.value='Admin User'" onFocus="if(this.value=='Admin User')this.value='' "> <!-- JS because of IE support; better: placeholder="Email" -->
+<input type="text" name="username" required value="Admin Username" onBlur="if(this.value=='')this.value='Admin Username'" onFocus="if(this.value=='Admin Username')this.value='' "> <!-- JS because of IE support; better: placeholder="Username" -->
 
-<input type="password" name="pwd" required value="Admin Password" onBlur="if(this.value=='')this.value='Admin Password'" onFocus="if(this.value=='Admin Password')this.value='' "> <!-- JS because of IE support; better: placeholder="Password" -->
+<input type="password" name="pwd" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "> <!-- JS because of IE support; better: placeholder="Password" -->
 
 <center><input type="submit" value="Login" name="sub"></center>
 
