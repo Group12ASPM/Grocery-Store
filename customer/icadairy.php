@@ -71,12 +71,47 @@
 <!--right for fruits-->
 
 <p style="text-align:center;margin-bottom:25px;margin-top:25px;font-weight:bold;font-size:25px"> Welcome to <span style="color:red;font-weight:bold"> ICA </span> Online - Dairy</p>
-
+<?php
+    include "conn.php";
+    $yon = $_GET['yon'];
+    if($yon=='yes')
+    {
+        echo "<center><p id='addline' style='text-align:center;margin-bottom:25px;margin-top:25px;font-weight:bold;font-size:15px'> Product <span style='color:red;font-weight:bold'> SUCCESSFULLY </span> added to your cart!</p></center>";
+    }
+    ?>
 <br>
 
 <!--row for display-->
 <div style="width:70%;margin:auto">
 <!-- code from backend-->
+<?php
+    
+    $pid = $_GET['id'];
+    $result = mysql_query("SELECT Image,product_name,description,total_quantity,price FROM products WHERE store_id='2' AND product_id='$pid'");
+    
+    while($row = mysql_fetch_array($result))
+    {
+        echo "<div style='height:500px'>";
+        echo "<h1 style='margin:20px;'>" . $row['product_name'] . "</h1>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:200px;position:relative;margin-left:25%' width='50%' /><br><br>";
+        echo "<p align='center'><b>Product Description:</b>" . $row['description'] . "<br><br><b>Price:</b>" .$row['price']. "kr<br><BR><b>Total Available Quantity:</b>" . $row['total_quantity'] . "</p><br>";
+        echo "<center><form action='mycart-idairy.php?pid=".$pid."&sid=2' method='post'>";
+        echo "<select name='quant' id='quant'>";
+        echo "<option value='1'>1</option>";
+        echo "<option value='2'>2</option>";
+        echo "<option value='3'>3</option>";
+        echo "<option value='4'>4</option>";
+        echo "<option value='5'>5</option>";
+        echo "<option value='6'>6</option>";
+        echo "<option value='7'>7</option>";
+        echo "<option value='8'>8</option>";
+        echo "<option value='9'>9</option>";
+        echo "<option value='10'>10</option>";
+        echo "</select>";
+        echo "<input class='myButton2' type='submit' value='Add to Cart' id='add' name='add'/></form></center>";
+        echo "</div>";
+    }
+    ?>
 </div>
 
 

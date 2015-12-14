@@ -5,6 +5,7 @@
 <head>
 <script src="js/jquery.js"></script>
 <link rel="stylesheet" href="css/style1.css">
+<link rel="stylesheet" href="css/style4.css">
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet" type="text/css">
 <script>
@@ -87,7 +88,7 @@ function icandies()
 <img src="images/companylogo.png" width="100" height="80" style="position:relative; margin-left:10px;margin-top:15px">
 </div>
 <center>
-<h1 style="margin-top:-150px; margin-bottom:20px;font-family: 'Lobster', cursive; color:#00b1b7; font-size:75px;">Online Grocery Store - Willys </h1>
+<h1 style="margin-top:-150px; margin-bottom:20px;font-family: 'Lobster', cursive; color:#00b1b7; font-size:75px;">Online Grocery Store - ICa </h1>
 </center>
 </div>
 
@@ -157,12 +158,12 @@ function icandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='1'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='2' AND categoryid='1'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div id='".$row['product_id']."' style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='icafruit.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -186,12 +187,12 @@ function icandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='2'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='2' AND categoryid='2'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div id='".$row['product_id']."' style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='icaveg.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -215,12 +216,12 @@ function icandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='3'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='2' AND categoryid='3'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div id='".$row['product_id']."' style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='icadairy.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -243,12 +244,12 @@ function icandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='2' AND categoryid='4'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='2' AND categoryid='4'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div id='".$row['product_id']."' style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='icacandies.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -266,8 +267,8 @@ function icandies()
 <center>
 <Br>
 <br>
-<li><a href="">Privacy Policy</a></li>
-<li><a href="">Return Policy</a></li>
+<li><a href="privacy.php">Privacy Policy</a></li>
+<li><a href="returnpolicy.php">Return Policy</a></li>
 <li><a href="contact.php">Contact Us</a></li>
 </ul>
 </center>

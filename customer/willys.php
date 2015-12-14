@@ -157,12 +157,12 @@ function wcandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='1' AND categoryid='1'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='1' AND categoryid='1'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div id='".$row['product_id']."' style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='willysfruit.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -186,12 +186,12 @@ function wcandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='1' AND categoryid='2'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='1' AND categoryid='2'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div id='".$row['product_id']."' style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='willysveg.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -215,12 +215,12 @@ function wcandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='1' AND categoryid='3'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='1' AND categoryid='3'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div  id='".$row['product_id']."' style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='willysdairy.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -243,12 +243,12 @@ function wcandies()
 
 <?php
     
-    $result = mysql_query("SELECT Image,product_name,price FROM products WHERE store_id='1' AND categoryid='4'");
+    $result = mysql_query("SELECT product_id,Image,product_name,price FROM products WHERE store_id='1' AND categoryid='4'");
     
     while($row = mysql_fetch_array($result))
     {
-        echo "<div style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' />";
+        echo "<div  id='".$row['product_id']."'style='width:30%;position:relative;margin-right:20px;margin-bottom:20px;display:inline-block;border:2px solid grey'>";
+        echo "<a href='willyscandies.php?id=".$row['product_id']."'><img src='data:image/jpeg;base64," . base64_encode( $row['Image']) . "' style='height:150px;position:relative' width='100%' /></a>";
         echo "<p align='center'>" . $row['product_name'] . "<br><b>Price:</b>" .$row['price']. "kr</p>";
         echo "</div>";
     }
@@ -266,8 +266,8 @@ function wcandies()
 <center>
 <Br>
 <br>
-<li><a href="">Privacy Policy</a></li>
-<li><a href="">Return Policy</a></li>
+<li><a href="privacy.php">Privacy Policy</a></li>
+<li><a href="returnpolicy.php">Return Policy</a></li>
 <li><a href="contact.php">Contact Us</a></li>
 </ul>
 </center>
