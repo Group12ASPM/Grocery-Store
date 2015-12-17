@@ -1,106 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- - phpMyAdmin XML Dump
- - version 4.4.10
- - http://www.phpmyadmin.net
- -
- - Host: localhost:8889
- - Generation Time: Dec 04, 2015 at 12:28 PM
- - Server version: 5.5.42
- - PHP Version: 5.6.10
- -->
+- phpMyAdmin XML Dump
+- version 4.4.10
+- http://www.phpmyadmin.net
+-
+- Host: localhost:8889
+- Generation Time: Dec 17, 2015 at 11:31 AM
+- Server version: 5.5.42
+- PHP Version: 5.6.10
+-->
 
 <pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
     <!--
-     - Structure schemas
-     -->
+    - Structure schemas
+    -->
     <pma:structure_schemas>
         <pma:database name="kb" collation="latin1_swedish_ci" charset="latin1">
             <pma:table name="adminpanel">
                 CREATE TABLE `adminpanel` (
-                `id` int(11) NOT NULL AUTO_INCREMENT,
-                `adminuser` varchar(30) NOT NULL,
-                `adminpwd` varchar(30) NOT NULL,
-                PRIMARY KEY (`id`)
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `adminuser` varchar(30) NOT NULL,
+                  `adminpwd` varchar(30) NOT NULL,
+                  PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
             </pma:table>
             <pma:table name="MyCart">
                 CREATE TABLE `MyCart` (
-                `cart_id` int(12) NOT NULL,
-                `quantity` int(12) NOT NULL,
-                `uid` int(11) NOT NULL,
-                `product_id` int(11) NOT NULL,
-                PRIMARY KEY (`cart_id`),
-                KEY `uid` (`uid`),
-                KEY `product_id` (`product_id`)
+                  `cart_id` int(12) NOT NULL,
+                  `quantity` int(12) NOT NULL,
+                  `uid` int(11) NOT NULL,
+                  `product_id` int(11) NOT NULL,
+                  `store_id` int(11) NOT NULL,
+                  PRIMARY KEY (`cart_id`,`uid`,`product_id`,`store_id`),
+                  KEY `uid` (`uid`),
+                  KEY `product_id` (`product_id`),
+                  KEY `store_id` (`store_id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
             </pma:table>
             <pma:table name="orders">
                 CREATE TABLE `orders` (
-                `order_id` int(11) NOT NULL AUTO_INCREMENT,
-                `payment_mode` varchar(30) NOT NULL,
-                `payment_total` int(16) NOT NULL,
-                `delivery_date` date NOT NULL,
-                `status` varchar(25) NOT NULL,
-                `cart_id` int(12) NOT NULL,
-                PRIMARY KEY (`order_id`),
-                KEY `cart_id` (`cart_id`),
-                CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `MyCart` (`cart_id`)
+                  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `payment_mode` varchar(30) NOT NULL,
+                  `payment_total` int(16) NOT NULL,
+                  `delivery_date` date NOT NULL,
+                  `status` varchar(25) NOT NULL,
+                  `cart_id` int(12) NOT NULL,
+                  PRIMARY KEY (`order_id`),
+                  KEY `cart_id` (`cart_id`),
+                  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `MyCart` (`cart_id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
             </pma:table>
             <pma:table name="products">
                 CREATE TABLE `products` (
-                `product_id` int(11) NOT NULL AUTO_INCREMENT,
-                `product_name` varchar(50) NOT NULL,
-                `description` varchar(5000) NOT NULL,
-                `categoryid` int(11) NOT NULL,
-                `store_id` int(11) NOT NULL,
-                `Image` blob NOT NULL,
-                `price` int(12) NOT NULL,
-                `total_quantity` int(12) NOT NULL,
-                PRIMARY KEY (`product_id`,`store_id`),
-                KEY `categoryid` (`categoryid`),
-                KEY `store_id` (`store_id`),
-                CONSTRAINT `products_ibfk_1` FOREIGN KEY (`categoryid`) REFERENCES `products_category` (`categoryid`),
-                CONSTRAINT `products_ibfk_2` FOREIGN KEY (`store_id`) REFERENCES `stores` (`store_id`)
+                  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `product_name` varchar(50) NOT NULL,
+                  `description` varchar(5000) NOT NULL,
+                  `categoryid` int(11) NOT NULL,
+                  `store_id` int(11) NOT NULL,
+                  `Image` blob NOT NULL,
+                  `price` int(12) NOT NULL,
+                  `total_quantity` int(12) NOT NULL,
+                  PRIMARY KEY (`product_id`,`store_id`),
+                  KEY `categoryid` (`categoryid`),
+                  KEY `store_id` (`store_id`),
+                  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`categoryid`) REFERENCES `products_category` (`categoryid`),
+                  CONSTRAINT `products_ibfk_2` FOREIGN KEY (`store_id`) REFERENCES `stores` (`store_id`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
             </pma:table>
             <pma:table name="products_category">
                 CREATE TABLE `products_category` (
-                `categoryid` int(11) NOT NULL AUTO_INCREMENT,
-                `categoryname` varchar(100) NOT NULL,
-                PRIMARY KEY (`categoryid`),
-                KEY `categoryid` (`categoryid`)
+                  `categoryid` int(11) NOT NULL AUTO_INCREMENT,
+                  `categoryname` varchar(100) NOT NULL,
+                  PRIMARY KEY (`categoryid`),
+                  KEY `categoryid` (`categoryid`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
             </pma:table>
             <pma:table name="stores">
                 CREATE TABLE `stores` (
-                `store_id` int(11) NOT NULL,
-                `store_name` varchar(12) NOT NULL,
-                `location` varchar(40) NOT NULL,
-                PRIMARY KEY (`store_id`)
+                  `store_id` int(11) NOT NULL,
+                  `store_name` varchar(12) NOT NULL,
+                  `location` varchar(40) NOT NULL,
+                  PRIMARY KEY (`store_id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
             </pma:table>
             <pma:table name="users">
                 CREATE TABLE `users` (
-                `uid` int(11) NOT NULL AUTO_INCREMENT,
-                `fname` varchar(20) NOT NULL,
-                `lname` varchar(20) NOT NULL,
-                `dob` varchar(20) NOT NULL,
-                `email` varchar(30) NOT NULL,
-                `phone` longblob NOT NULL,
-                `username` varchar(20) NOT NULL,
-                `password` varchar(20) NOT NULL,
-                `address` varchar(100) NOT NULL,
-                PRIMARY KEY (`uid`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+                  `uid` int(11) NOT NULL AUTO_INCREMENT,
+                  `fname` varchar(20) NOT NULL,
+                  `lname` varchar(20) NOT NULL,
+                  `dob` varchar(20) NOT NULL,
+                  `email` varchar(30) NOT NULL,
+                  `phone` longblob NOT NULL,
+                  `username` varchar(20) NOT NULL,
+                  `password` varchar(20) NOT NULL,
+                  `address` varchar(100) NOT NULL,
+                  PRIMARY KEY (`uid`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
             </pma:table>
         </pma:database>
     </pma:structure_schemas>
-    
+
     <!--
-     - Database: 'kb'
-     -->
+    - Database: 'kb'
+    -->
     <database name="kb">
         <!-- Table adminpanel -->
         <table name="adminpanel">
@@ -109,6 +111,41 @@
             <column name="adminpwd">admin</column>
         </table>
         <!-- Table MyCart -->
+        <table name="MyCart">
+            <column name="cart_id">1</column>
+            <column name="quantity">1</column>
+            <column name="uid">1</column>
+            <column name="product_id">1</column>
+            <column name="store_id">1</column>
+        </table>
+        <table name="MyCart">
+            <column name="cart_id">1</column>
+            <column name="quantity">10</column>
+            <column name="uid">1</column>
+            <column name="product_id">2</column>
+            <column name="store_id">1</column>
+        </table>
+        <table name="MyCart">
+            <column name="cart_id">1</column>
+            <column name="quantity">1</column>
+            <column name="uid">1</column>
+            <column name="product_id">12</column>
+            <column name="store_id">2</column>
+        </table>
+        <table name="MyCart">
+            <column name="cart_id">1</column>
+            <column name="quantity">3</column>
+            <column name="uid">1</column>
+            <column name="product_id">13</column>
+            <column name="store_id">1</column>
+        </table>
+        <table name="MyCart">
+            <column name="cart_id">1</column>
+            <column name="quantity">8</column>
+            <column name="uid">1</column>
+            <column name="product_id">17</column>
+            <column name="store_id">1</column>
+        </table>
         <!-- Table orders -->
         <!-- Table products -->
         <table name="products">
@@ -700,27 +737,5 @@
             <column name="location">Centrum</column>
         </table>
         <!-- Table users -->
-        <table name="users">
-            <column name="uid">1</column>
-            <column name="fname">nagababu</column>
-            <column name="lname">veera</column>
-            <column name="dob">19/04/1990</column>
-            <column name="email">sirigineedi.sv@gmail.com</column>
-            <column name="phone">9866611539</column>
-            <column name="username">nagababu</column>
-            <column name="password">123456</column>
-            <column name="address">jwhfefejfh</column>
-        </table>
-        <table name="users">
-            <column name="uid">2</column>
-            <column name="fname">naresh</column>
-            <column name="lname">n</column>
-            <column name="dob">19/04/1990</column>
-            <column name="email">abc@gmail.com</column>
-            <column name="phone">9866611539</column>
-            <column name="username">naresh</column>
-            <column name="password">123456789</column>
-            <column name="address">nebhgtrbtj</column>
-        </table>
     </database>
 </pma_xml_export>
