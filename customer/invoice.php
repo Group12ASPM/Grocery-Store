@@ -4,18 +4,34 @@
     $uid=$_GET['uid'];
     $fname = $_GET['fname'];
     $lname = $_GET['lname'];
-    $wresult = mysql_query("SELECT * FROM products WHERE product_id IN (SELECT product_id FROM MyCart WHERE uid='$uid' AND cart_id='1' AND store_id='1') AND store_id='1'");
-    $wsno=1;
-    $finaltotal1=0;
-    $count1=mysql_num_rows($wresult);
-    $iresult = mysql_query("SELECT * FROM products WHERE product_id IN (SELECT product_id FROM MyCart WHERE uid='$uid' AND cart_id='1' AND store_id='2') AND store_id='2'");
-    $isno=1;
-    $finaltotal2=0;
-    $count2=mysql_num_rows($iresult);
+    $total = $_GET['total'];
+    $orderid = $_GET['orderid'];
+    $payment = $_GET['payment'];
+    $deliverydate=$_GET['deliverydate'];
+    $additional=$_GET['additional'];
 ?>
 <html>
 <head>
+<style>
+.demo {
+border:1px solid #C0C0C0;
+border-collapse:collapse;
+padding:5px;
+}
+.demo th {
+border:1px solid #C0C0C0;
+padding:5px;
+background:#F0F0F0;
+}
+.demo td {
+border:1px solid #C0C0C0;
+padding:5px;
+}
+</style>
 <script src="js/jquery.js"></script>
+<link rel="stylesheet" href="orderfinal_files/formoid1/formoid-metro-cyan.css" type="text/css" />
+<script type="text/javascript" src="orderfinal_files/formoid1/jquery.min.js"></script>
+<script type="text/javascript" src="orderfinal_files/formoid1/ormoid-metro-cyan.js"></script>
 <script>
 var clicked=true;
 function searchbox() {
@@ -41,7 +57,9 @@ function searchbox() {
     }
     
 }
-
+function myFunction() {
+    window.print();
+}
 </script>
 <link rel="stylesheet" href="css/style1.css">
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
@@ -196,76 +214,94 @@ Welcome
 </div>
 <div id="right"></div>
 
+<br>
+<br>
 <!--main starts-->
 <section>
-<p style="text-align:center;margin-bottom:25px;margin-top:25px;font-weight:bold;font-size:25px"> MY CART </p>
-<?php
-    if($count1==0 AND $count2==0)
-    {
-        echo "<p style='text-align:center;margin-bottom:25px;margin-top:25px;font-weight:bold;font-size:20px'> Your cart is empty! Browse the stores to add products to your cart! </p>";
-    }
-    
-    ?>
-<?php
-    
-    $willysless=$_GET['willysless'];
-    $icaless=$_GET['icaless'];
-    if($willysless=='yes' AND $icaless=='yes')
-    {
-        $min=5;
-        $wless= $min - $count1;
-        $iless= $min - $count2;
-        echo "<p style='text-align:center;margin-bottom:25px;margin-top:25px;font-weight:bold;font-size:20px'> Select at least 5 items in each store to place an order! <br> Add <span style='color:red'>$wless </span> more items to Willys Cart and <span style='color:red'> $iless</span> items to ICA Cart to Place your Order NOW! </p>";
-    }
-    else if($willysless=='yes')
-    {
-        $min=5;
-        $wless= $min - $count1;
-        echo "<p style='text-align:center;margin-bottom:25px;margin-top:25px;font-weight:bold;font-size:20px'> Select at least 5 items in each store to place an order! <br> Add <span style='color:red'>$wless</span> more items to Willys Cart to Place your Order NOW! </p>";
-    }
-    else if($icaless=='yes')
-    {
-        $min=5;
-        $iless= $min - $count2;
-        echo "<p style='text-align:center;margin-bottom:25px;margin-top:25px;font-weight:bold;font-size:20px'> Select at least 5 items in each store to place an order! <br> Add <span style='color:red'>$iless</span> more items to ICA Cart to Place your Order NOW! </p>";
-    }
-?>
 
 <!-- Row 1 for willys products in cart-->
 
 
-<div id="mycart" style="width:90%;margin-bottom:100px;margin:auto">
+<!--confirm order details start-->
 
-<div class="datagrid">
-<table align="center">
+<form class="formoid-metro-cyan" style="background-color:#FFFFFF;font-size:14px;font-family:'Open Sans','Helvetica Neue','Helvetica',Arial,Verdana,sans-serif;color:#666666;max-width:600px;min-width:600px" method="post" onsubmit="myFunction()"><div class="title"><img src="images/companylogo.png" width="50" height="50" style="position:relative; margin-left:10px;margin-top:15px"><h2 style="display:inline-block">ORDER INVOICE</h2></div>
 
-<thead>
-<tr>
-<th>No</th>
-<th width="20%">Product Name</th>
-<th width="30%">Product Image</th>
-<th> Quantity </th>
-<th> Unit Price </th>
-<th> Total Price </th>
-<th width="5%"> Delete </th>
-</tr>
-</thead>
+<div class="element-input">
+<span style="font-weight:bold"> NAME</span>  <?php echo "$fname $lname"; ?></div>
 
-<tbody>
-
-<!-- willys-->
-<tr>
-<td colspan="7">Willys Shopping List</td>
-</tr>
+<div class="element-input">
+<span style="font-weight:bold"> ADDRESS</span>
 <?php
     
-    if($count1 > 0)
+    $result = mysql_query("SELECT * FROM users WHERE uid='$uid'");
+    
+    while($row = mysql_fetch_array($result))
     {
+        echo "".$row['address']."";
+    }
+    
+?>
+</div>
+
+<div class="element-input">
+<span style="font-weight:bold"> PHONE</span>
+<?php
+    
+    $result = mysql_query("SELECT * FROM users WHERE uid='$uid'");
+    
+    while($row = mysql_fetch_array($result))
+    {
+        echo "".$row['phone']."";
+    }
+    
+?>
+</div>
+
+<div class="element-input">
+<span style="font-weight:bold"> EMAIL</span>
+<?php
+    
+    $result = mysql_query("SELECT * FROM users WHERE uid='$uid'");
+    
+    while($row = mysql_fetch_array($result))
+    {
+        echo "".$row['email']."";
+    }
+    
+    ?>
+</div>
+
+<div class="element-input">
+<span style="font-weight:bold"> ORDER ID</span>
+<?php echo "$orderid"; ?>
+</div>
+
+<div class="element-input">
+<span style="font-weight:bold"> DELIVERY DATE</span>
+<?php echo "$deliverydate"; ?>
+</div>
+
+<center>
+<table class="demo">
+<thead>
+<th>S No</th>
+<th width="30%">Product</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Total Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="5">WILLYS Product List</td>
+</tr>
+<?php
+   
+    $wresult = mysql_query("SELECT * FROM products WHERE product_id IN (SELECT product_id FROM MyCart WHERE uid='$uid' AND cart_id='1' AND store_id='1') AND store_id='1'");
+    $wsno=1;
     while ($wrow = mysql_fetch_assoc($wresult)) {
         $wproductid=$wrow['product_id'];
-        
-        echo "<tr class='alt'><td>".$wsno++."</td><td width='10%'>{$wrow['product_name']}</td><td><img src='data:image/jpeg;base64," . base64_encode( $wrow['Image']) . "' style='height:50px;position:relative;' width='20%' /></td>";
-        
+        echo "<tr align='center'><td>".$wsno++."</td><td width='10%'>{$wrow['product_name']}</td>";
         $wres=mysql_query("SELECT quantity FROM MyCart WHERE product_id ='$wproductid' AND uid='$uid' AND cart_id='1' AND store_id='1'");
         while($wrowres = mysql_fetch_array($wres)) {
             echo "<td>{$wrowres['quantity']}</td>";
@@ -273,89 +309,79 @@ Welcome
             $wpr=$wrow['price'];
             $wtotal=$wquant*$wpr;
             $finaltotal1=$finaltotal1+$wtotal;
-        }
-        echo "<td>{$wrow['price']} SEK</td> <td>".$wtotal." SEK </td>";
-        echo "<td><a href='mycartdelete.php?store=1&uid=$uid&product=$wproductid&login=$login&fname=$fname&lname=$lname'><img src='images/del.png' width='20px' height='20px' style='margin-left:10px'></a></td></tr>";
     }
-    }
-    else
-    {
-        echo "<tr class='alt'><td colspan='7' align='center'> EMPTY Willys Shopping Cart </td></tr>";
-    }
+    echo "<td>{$wrow['price']} SEK</td> <td>".$wtotal." SEK </td></tr>";
+}
 ?>
 
-<!-- ica-->
 <tr>
-<td colspan="7">ICA Shopping List</td>
+<td colspan="5">ICA Product List</td>
 </tr>
 <?php
-    if($count2 > 0)
-    {
+
+    $iresult = mysql_query("SELECT * FROM products WHERE product_id IN (SELECT product_id FROM MyCart WHERE uid='$uid' AND cart_id='1' AND store_id='2') AND store_id='2'");
+    $isno=1;
     while ($irow = mysql_fetch_assoc($iresult)) {
         $iproductid=$irow['product_id'];
-        
-        echo "<tr class='alt'><td>".$isno++."</td><td width='10%'>{$irow['product_name']}</td><td><img src='data:image/jpeg;base64," . base64_encode( $irow['Image']) . "' style='height:50px;position:relative;' width='20%' /></td>";
-        
+        echo "<tr align='center'><td>".$isno++."</td><td width='10%'>{$irow['product_name']}</td>";
         $ires=mysql_query("SELECT quantity FROM MyCart WHERE product_id ='$iproductid' AND uid='$uid' AND cart_id='1' AND store_id='2'");
         while($irowres = mysql_fetch_array($ires)) {
-            
             echo "<td>{$irowres['quantity']}</td>";
             $iquant=$irowres['quantity'];
             $ipr=$irow['price'];
             $itotal=$iquant*$ipr;
             $finaltotal2=$finaltotal2+$itotal;
-            
         }
-        echo "<td>{$irow['price']} SEK</td><td>".$itotal." SEK </td>";
-        echo "<td><a href='mycartdelete.php?store=2&uid=$uid&product=$iproductid&login=$login&fname=$fname&lname=$lname'><img src='images/del.png' width='20px' height='20px' style='margin-left:10px'></a></td></tr>";
-    }
-    }
-    else
-    {
-        echo "<tr class='alt'><td colspan='7' align='center'> EMPTY ICA Shopping Cart </td></tr>";
-    }
-?>
-<tr >
-<td colspan="5"><span style="font-size:20px">GRAND TOTAL AMOUNT</span></td>
-<?php
-    $finaltotal=$finaltotal1+$finaltotal2;
-    echo "<td colspan='2' align='right'><span style='font-size:20px'>".$finaltotal." SEK</span></td></tr>";
+        echo "<td>{$irow['price']} SEK</td><td>".$itotal." SEK </td></tr>";
+}
 ?>
 </tbody>
-</table>
-</div>
-<br>
-<center>
+<thead>
+<th colspan="4">Price</th>
+<th width="30%">
 <?php
-    if ($count1 < 5 AND $count2 < 5 AND $count1 != 0 AND $count2 != 0)
+    if($additional == 50)
     {
-        echo "<a class='myButton2' href='mycart.php?login=$login&uid=$uid&fname=$fname&lname=$lname&willysless=yes&icaless=yes'>Place Order</a>";
-    }
-    else if($count1 < 5 AND $count1 !=0)
-    {
-        echo "<a class='myButton2' href='mycart.php?login=$login&uid=$uid&fname=$fname&lname=$lname&willysless=yes'>Place Order</a>";
-    }
-    else if ($count2 < 5 AND $count2 != 0)
-    {
-        echo "<a class='myButton2' href='mycart.php?login=$login&uid=$uid&fname=$fname&lname=$lname&icaless=yes'>Place Order</a>";
-    }
-    else if($count1==0 AND $count2==0)
-    {
-        echo "";
-    }
-    else if($count1==0 OR $count2==0)
-    {
-        echo "<a class='myButton2' href='order.php?login=$login&uid=$uid&fname=$fname&lname=$lname&count1=$count1&count2=$count2&finaltotal=$finaltotal'>Place Order</a>";
+        $pretotal=$total-50;
+    echo "$pretotal SEK" ;
     }
     else
     {
-        echo "<a class='myButton2' href='order.php?login=$login&uid=$uid&fname=$fname&lname=$lname&count1=$count1&count2=$count2&finaltotal=$finaltotal'>Place Order</a>";
+        echo "$total SEK" ;
     }
-    
     ?>
-</center>
-</div>
+</th>
+</thead>
 
+<thead>
+<th colspan="4">Delivery Charges</th>
+<th width="30%">
+<?php
+        if($additional == 50)
+        {
+            echo "$additional SEK";
+        }
+        else
+        {
+            echo "0 SEK";
+        }
+    ?>
+</th>
+</thead>
+
+<thead>
+<th colspan="4">TOTAL Price</th>
+<th width="30%"><?php echo "$total SEK"; ?></th>
+</thead>
+
+
+</table>
+</center>
+<br>
+<div class="submit"><input type="submit" value="Print This Page"/></div></form>
+
+<br><Br>
+<!--confirm order details end-->
 
 </section>
 
